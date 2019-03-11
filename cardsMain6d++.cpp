@@ -34,7 +34,8 @@ struct Card{
 };
 
 void printCard(const Card &card){
-  std::cout << "\ncard rank: "<< card.rank << " card suit:" << card.suit << std::endl;
+  std::cout << "\ncard rank count: "<< card.rank << " card suit count:" << card.suit;
+  std::cout << "\ncard code: ";
   switch(card.rank){
     case RANK_2:
       std::cout << "2";
@@ -97,24 +98,30 @@ int main(){
 std::array<Card, 52> deck;
 
 using index_t = std::array<Card, 52>::size_type;
-int suitCount {0};
-int rankCount {0};
-for(index_t card {0}; card < deck.size(); card++){
-  if(suitCount == static_cast<int> (SUIT_MAX_SUITS)){
-    suitCount = 0;
-  }
-  deck.at(card).suit = static_cast<CardSuit> (suitCount);
-  suitCount++;
-  if(rankCount == static_cast<int> (RANK_MAX_RANKS)){
-    rankCount = 0;
-  }
-  deck.at(card).rank = static_cast<CardRank> (rankCount);
-  rankCount++;
-}
 
+  for(index_t card {0}, suitCount {0}, rankCount {0}; card < deck.size(); suitCount++, rankCount++, card++){ //step through all four suits
+    if(suitCount == static_cast<index_t> (SUIT_MAX_SUITS)){
+      suitCount = 0;
+    }
+    if(rankCount == static_cast<index_t> (RANK_MAX_RANKS)){
+      rankCount = 0;
+    }
+    deck.at(card).suit = static_cast<CardSuit> (suitCount);
+    deck.at(card).rank = static_cast<CardRank> (rankCount);
+  }
+
+std::cout << "Card at 0: ";
 printCard(deck.at(0));
+std::cout << std::endl;
+std::cout << "Card at 1: ";
 printCard(deck.at(1));
+std::cout << std::endl;
+std::cout << "Card at 2: ";
 printCard(deck.at(2));
+std::cout << std::endl;
+std::cout << "Card at 51: ";
+printCard(deck.at(51));
+std::cout << std::endl;
 
 int sillyviewervar;
 std::cin >> sillyviewervar;
