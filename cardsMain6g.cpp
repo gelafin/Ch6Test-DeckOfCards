@@ -116,7 +116,6 @@ void shuffleDeck(std::array<Card, 52> &deck){
     index_t randomIndex {std::rand() % (deck.size() + 1)};
     swapCard(deck.at(card), deck.at(randomIndex));
   }
-
 }
 
 int main(){
